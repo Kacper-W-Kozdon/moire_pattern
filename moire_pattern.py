@@ -9,9 +9,9 @@ class Window():
 
     window_shape = (1024, 1024)
     canvas_shape = (512, 512)
-    num_rays_1 = 120
-    num_rays_2 = 150
-    speed_1 = 1.5
+    num_rays_1 = 100
+    num_rays_2 = 200
+    speed_1 = 1
     speed_2 = 1
     ray_length = 300
     centre_1 = 200
@@ -54,7 +54,7 @@ class Window():
         centre_1, centre_2 = Window.centre_1, Window.centre_2
         spin_resolution = Window.spin_resolution
         speed_1, speed_2 = Window.speed_1, Window.speed_2
-        num_rays_1, num_rays_2 = Window.num_rays_2, Window.num_rays_2
+        num_rays_1, num_rays_2 = Window.num_rays_1, Window.num_rays_2
 
 
         if not all([self.bunch_1, self.bunch_2]):
