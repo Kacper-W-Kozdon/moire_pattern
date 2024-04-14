@@ -9,20 +9,21 @@ class Window():
 
     window_shape = (1024, 1024)
     canvas_shape = (512, 512)
-    num_rays_1 = 40
-    num_rays_2 = 60
+    num_rays_1 = 70
+    num_rays_2 = 90
     speed_1 = 1.5
     speed_2 = 1
     ray_length = 300
     centre_1 = 200
     centre_2 = 312
-    spin_resolution = math.pi * 4
+    spin_resolution = math.pi * 8
 
     def __init__(self):
           self.spin = False
           self.move = False
           self.root = None
           self.canvas = None
+          self.angle = 0
           self.angle_1 = 0
           self.angle_2 = 0
           self.step = 10
@@ -109,10 +110,10 @@ class Window():
             self.angle += 1
             self.angle = self.angle if self.angle < 60 else 0
 
-            x1 = centre + ray_length * math.sin(self.angle * math.pi/num_rays)
-            x2 = centre - ray_length * math.sin(self.angle * math.pi/num_rays)
-            y1 = canvas_height/2 - ray_length * math.cos(self.angle * math.pi/num_rays)
-            y2 = canvas_height/2 + ray_length * math.cos(self.angle * math.pi/num_rays)
+            x1 = centre + ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
+            x2 = centre - ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
+            y1 = canvas_height/2 - ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
+            y2 = canvas_height/2 + ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
             line = self.canvas.create_line((x1, y1, x2, y2), fill='white')
             self.canvas.coords(line, x1, y1, x2, y2)
 
