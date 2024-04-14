@@ -8,14 +8,14 @@ from tkinter.ttk import *
 class Window():
 
     window_shape = (1024, 1024)
-    canvas_shape = (512, 512)
+    canvas_shape = (1024, 512)
     num_rays_1 = 100
     num_rays_2 = 200
     speed_1 = 1
     speed_2 = 1
-    ray_length = 300
-    centre_1 = 200
-    centre_2 = 312
+    ray_length = 400
+    centre_1 = 0.4 * canvas_shape[0]
+    centre_2 = 0.55 * canvas_shape[0]
     spin_resolution = math.pi * 8
 
     def __init__(self):
@@ -103,7 +103,7 @@ class Window():
             self.canvas.coords(line, x1, y1, x2, y2)
 
     def make_bunch(self, ray_length, centre, num_rays):
-        canvas_height = Window.canvas_shape[0]
+        canvas_width, canvas_height = Window.canvas_shape
         bunch = list()
         self.angle = 0
         x1, y1, x2, y2 = centre, canvas_height - ray_length, centre, canvas_height + ray_length
