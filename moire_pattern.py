@@ -12,7 +12,7 @@ class Window():
     num_rays_1 = 100
     num_rays_2 = 200
     speed_1 = 1
-    speed_2 = 2
+    speed_2 = -2
     ray_length = 500
     centre_1 = (0.5 * canvas_shape[0], 0.35 * canvas_shape[1])
     centre_2 = (0.5 * canvas_shape[0], 0.6 * canvas_shape[1])
@@ -98,10 +98,18 @@ class Window():
 
             x1, y1, x2, y2 = self.canvas.coords(line)
 
-            x1 = centre_x - direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            x2 = centre_x + direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            y1 = centre_y + direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            y2 = centre_y - direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            x1 = centre_x - direction * ray_length * \
+                math.sin((direction * speed * angle + line_id) *
+                         2 * math.pi/num_rays)
+            x2 = centre_x + direction * ray_length * \
+                math.sin((direction * speed * angle + line_id) *
+                         2 * math.pi/num_rays)
+            y1 = centre_y + direction * ray_length * \
+                math.cos((direction * speed * angle + line_id) *
+                         2 * math.pi/num_rays)
+            y2 = centre_y - direction * ray_length * \
+                math.cos((direction * speed * angle + line_id) *
+                         2 * math.pi/num_rays)
             self.canvas.coords(line, x1, y1, x2, y2)
 
     def make_bunch(self, ray_length, centre, num_rays):
@@ -114,10 +122,14 @@ class Window():
 
             centre_x, centre_y = centre
 
-            x1 = centre_x + ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
-            x2 = centre_x - ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
-            y1 = centre_y - ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
-            y2 = centre_y + ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
+            x1 = centre_x + ray_length * math.sin(self.angle *
+                                                  2 * math.pi/num_rays)
+            x2 = centre_x - ray_length * math.sin(self.angle *
+                                                  2 * math.pi/num_rays)
+            y1 = centre_y - ray_length * math.cos(self.angle *
+                                                  2 * math.pi/num_rays)
+            y2 = centre_y + ray_length * math.cos(self.angle *
+                                                  2 * math.pi/num_rays)
             line = self.canvas.create_line((x1, y1, x2, y2), fill='white')
             self.canvas.coords(line, x1, y1, x2, y2)
 
