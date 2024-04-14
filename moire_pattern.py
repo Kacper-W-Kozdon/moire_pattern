@@ -17,6 +17,7 @@ class Window():
     centre_1 = (0.5 * canvas_shape[0], 0.35 * canvas_shape[1])
     centre_2 = (0.5 * canvas_shape[0], 0.6 * canvas_shape[1])
     spin_resolution = math.pi * 8
+    refresh_rate = 240
 
     def __init__(self):
         self.spin = False
@@ -77,7 +78,7 @@ class Window():
                                  line_id, num_rays_2, direction=-1)
 
         if any([self.spin, self.move]):
-            self.root.after(20, self.update_canvas)
+            self.root.after(int(1/Window.refresh_rate * 1000), self.update_canvas)
 
     def update_line(self, line, centre, speed, angle, line_id, num_rays, direction=1):
         ray_length = Window.ray_length
