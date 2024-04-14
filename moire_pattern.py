@@ -54,6 +54,8 @@ class Window():
         centre_1, centre_2 = Window.centre_1, Window.centre_2
         spin_resolution = Window.spin_resolution
         speed_1, speed_2 = Window.speed_1, Window.speed_2
+        num_rays_1, num_rays_2 = Window.num_rays_2, Window.num_rays_2
+
 
         if not all([self.bunch_1, self.bunch_2]):
             return None
@@ -64,18 +66,18 @@ class Window():
             self.angle_1 = self.angle_1 if self.angle_1 < spin_resolution else 0
 
             for line_id, line in enumerate(self.bunch_1):
-                self.update_line(line, centre_1, speed_1, self.angle_1, line_id, direction=1)
+                self.update_line(line, centre_1, speed_1, self.angle_1, line_id, num_rays_1, direction=1)
 
             self.angle_2 += 1/spin_resolution
             self.angle_2 = self.angle_2 if self.angle_2 < spin_resolution else 0
 
             for line_id, line in enumerate(self.bunch_2):
-                self.update_line(line, centre_2, speed_2, self.angle_2, line_id, direction=-1)
+                self.update_line(line, centre_2, speed_2, self.angle_2, line_id, num_rays_2, direction=-1)
 
         if any([self.spin, self.move]):
             self.root.after(20, self.update_canvas)
 
-    def update_line(self, line, centre, speed, angle, line_id, direction=1):
+    def update_line(self, line, centre, speed, angle, line_id, num_rays, direction=1):
         spin_resolution = Window.spin_resolution
         ray_length = Window.ray_length
         canvas_width, canvas_height = Window.canvas_shape
@@ -94,10 +96,10 @@ class Window():
             x1, y1, x2, y2 = self.canvas.coords(line)
             midx = centre
             midy = canvas_height/2
-            x1 = midx + direction * ray_length * math.sin((direction * speed * angle + line_id) * math.pi/spin_resolution)
-            x2 = midx - direction * ray_length * math.sin((direction * speed * angle + line_id) * math.pi/spin_resolution)
-            y1 = midy - direction * ray_length * math.cos((direction * speed * angle + line_id) * math.pi/spin_resolution)
-            y2 = midy + direction * ray_length * math.cos((direction * speed * angle + line_id) * math.pi/spin_resolution)
+            x1 = midx - direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            x2 = midx + direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            y1 = midy + direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            y2 = midy - direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
             self.canvas.coords(line, x1, y1, x2, y2)
 
     def make_bunch(self, ray_length, centre, num_rays):
