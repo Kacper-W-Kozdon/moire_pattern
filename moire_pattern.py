@@ -7,15 +7,15 @@ from tkinter.ttk import *
 
 class Window():
 
-    window_shape = (1024, 1024)
+    window_shape = (1080, 720)
     canvas_shape = (1024, 512)
     num_rays_1 = 100
     num_rays_2 = 200
     speed_1 = 1
-    speed_2 = 1
-    ray_length = 400
-    centre_1 = 0.4 * canvas_shape[0]
-    centre_2 = 0.55 * canvas_shape[0]
+    speed_2 = 2
+    ray_length = 500
+    centre_1 = (0.5 * canvas_shape[0], 0.35 * canvas_shape[1])
+    centre_2 = (0.5 * canvas_shape[0], 0.6 * canvas_shape[1])
     spin_resolution = math.pi * 8
 
     def __init__(self):
@@ -81,6 +81,7 @@ class Window():
         spin_resolution = Window.spin_resolution
         ray_length = Window.ray_length
         canvas_width, canvas_height = Window.canvas_shape
+        centre_x, centre_y = centre
 
         if self.move is True:
             x1, y1, x2, y2 = self.canvas.coords(line)
@@ -94,12 +95,11 @@ class Window():
         if self.spin is True:
 
             x1, y1, x2, y2 = self.canvas.coords(line)
-            midx = centre
-            midy = canvas_height/2
-            x1 = midx - direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            x2 = midx + direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            y1 = midy + direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
-            y2 = midy - direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+
+            x1 = centre_x - direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            x2 = centre_x + direction * ray_length * math.sin((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            y1 = centre_y + direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
+            y2 = centre_y - direction * ray_length * math.cos((direction * speed * angle + line_id) * 2 * math.pi/num_rays)
             self.canvas.coords(line, x1, y1, x2, y2)
 
     def make_bunch(self, ray_length, centre, num_rays):
@@ -112,10 +112,12 @@ class Window():
             self.angle += 1
             self.angle = self.angle if self.angle < num_rays else 0
 
-            x1 = centre + ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
-            x2 = centre - ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
-            y1 = canvas_height/2 - ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
-            y2 = canvas_height/2 + ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
+            centre_x, centre_y = centre
+
+            x1 = centre_x + ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
+            x2 = centre_x - ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
+            y1 = centre_y - ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
+            y2 = centre_y + ray_length * math.cos(self.angle * 2 * math.pi/num_rays)
             line = self.canvas.create_line((x1, y1, x2, y2), fill='white')
             self.canvas.coords(line, x1, y1, x2, y2)
 
