@@ -9,8 +9,8 @@ class Window():
 
     window_shape = (1024, 1024)
     canvas_shape = (512, 512)
-    num_rays_1 = 70
-    num_rays_2 = 90
+    num_rays_1 = 120
+    num_rays_2 = 150
     speed_1 = 1.5
     speed_2 = 1
     ray_length = 300
@@ -110,7 +110,7 @@ class Window():
 
         for _ in range(num_rays):
             self.angle += 1
-            self.angle = self.angle if self.angle < 60 else 0
+            self.angle = self.angle if self.angle < num_rays else 0
 
             x1 = centre + ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
             x2 = centre - ray_length * math.sin(self.angle * 2 * math.pi/num_rays)
